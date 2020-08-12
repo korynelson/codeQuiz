@@ -55,7 +55,7 @@ cardEl.setAttribute("style", "text-align: center");
 
 function startTest(event) {
     if (event.target === navBtn){
-        navBtn.textContent = "Next";
+        navBtn.textContent = "Exit Quiz";
         navBtn.setAttribute("style", "font-size: 2vw");
         navBtn.parentElement.setAttribute("style", "text-align: center");
 
