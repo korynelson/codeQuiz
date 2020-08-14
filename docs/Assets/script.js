@@ -20,6 +20,9 @@ var secondsDisplay = document.querySelector("#seconds");
 var formCheck = document.querySelector(".form-check");
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
+var totalSeconds = 600;
+var secondsElapsed = 0;
+
 
 
 
@@ -150,13 +153,54 @@ cardEl.setAttribute("style", "text-align: center");
     }
 }
 
+function formatMin(){
+    var secondsLeft = totalSeconds - secondsElapsed;
+
+    var minutesLeft = Math.floor(secondsLeft / 60);
+  
+    var formattedMinutes;
+  
+    if (minutesLeft < 10) {
+      formattedMinutes = "0" + minutesLeft;
+    } else {
+      formattedMinutes = minutesLeft;
+    }
+  
+    return formattedMinutes;
+}
+
+function formatSec(){
+    var secondsLeft = (totalSeconds - secondsElapsed) % 60;
+
+  var formattedSeconds;
+
+  if (secondsLeft < 10) {
+    formattedSeconds = "0" + secondsLeft;
+  } else {
+    formattedSeconds = secondsLeft;
+  }
+
+  return formattedSeconds;
+}
+
 function startTimer(){
-    console.log("made it to timer")
-    this.min = 10
-    this.sec = 00
-    minutesDisplay.textContent = this.min;
-    secondsDisplay.textContent = this.sec;
+
+
+
+    if (totalSeconds > 0) {
+        /* The "interval" variable here using "setInterval()" begins the recurring increment of the
+           secondsElapsed variable which is used to check if the time is up */
+          interval = setInterval(function() {
+            secondsElapsed++;
     
+            // So renderTime() is called here once every second.
+            minutesDisplay.textContent = formatMin();;
+            secondsDisplay.textContent = formatSec();;
+            ;
+          }, 1000);
+      } else {
+        alert("Minutes of work/rest must be greater than 0.")
+      }
 
 }
 
