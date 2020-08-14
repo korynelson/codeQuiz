@@ -231,7 +231,7 @@ function quizInit(){
     console.log("attribute set");
 
     //incriment local storage index 
-    index()
+   
 }
 
 function index(){
@@ -253,11 +253,17 @@ function registerAnswer(event){
     console.log(event.target.nextElementSibling.textContent)
     console.log(window.localStorage.getItem("index"))
     quiz[window.localStorage.getItem("index")].input = event.target.nextElementSibling.textContent
+    console.log("registered answer")
     console.log(quiz)
 };
 
 function checkAnswer(){
-    
+    if(quiz[window.localStorage.getItem("index")].input === quiz[window.localStorage.getItem("index")].correct){
+        alert("that is correct")
+    }
+    else{
+        alert("WRONG!")
+    }
     };
 
 
