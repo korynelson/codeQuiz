@@ -20,7 +20,7 @@ var secondsDisplay = document.querySelector("#seconds");
 var formCheck = document.querySelector(".form-check");
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
-var totalSeconds = 600;
+var totalSeconds = 15;
 var secondsElapsed = 0;
 
 
@@ -130,11 +130,10 @@ cardEl.setAttribute("style", "max-width: 100px");
 cardEl.setAttribute("style", "text-align: center");
 
 
-
-
  function startTest(event) {
      console.log(event)
     if (event.target === startBtn){
+        renderTime()
         startBtn.textContent = "Next Question";
         startBtn.setAttribute("style", "font-size: 2vw");
         startBtn.parentElement.setAttribute("style", "text-align: center");
@@ -183,19 +182,38 @@ function formatSec(){
   return formattedSeconds;
 }
 
+function renderTime() {
+    // When renderTime is called it sets the textContent for the timer html...
+    minutesDisplay.textContent = formatMin();
+    secondsDisplay.textContent = formatSec();
+  
+   // ..and then checks to see if the time has run out
+    if (secondsElapsed > totalSeconds) {
+      if (status === "Working") {
+        alert("Time for a break!");
+      } else {
+        alert("Time to get back to work!");
+      }
+  
+      stopTimer();
+    }
+  }
+
+  function stopTimer() {
+    secondsElapsed = 0;
+    renderTime();
+  }
+
 function startTimer(){
-
-
 
     if (totalSeconds > 0) {
         /* The "interval" variable here using "setInterval()" begins the recurring increment of the
            secondsElapsed variable which is used to check if the time is up */
-          interval = setInterval(function() {
+            interval = setInterval(function() {
             secondsElapsed++;
     
             // So renderTime() is called here once every second.
-            minutesDisplay.textContent = formatMin();;
-            secondsDisplay.textContent = formatSec();;
+        renderTime()
             ;
           }, 1000);
       } else {
