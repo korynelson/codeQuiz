@@ -1,6 +1,9 @@
-//initialize items needed from DOM
+//load quiz 
+load('/quiz.js')
+//initialize variables - DOM and local storage
 var startDiv = document.querySelector("start");
-var navBtn = document.querySelector("#navBtn");
+var startBtn = document.querySelector("#startBtn");
+var submitBtn = document.querySelector("#submitBtn");
 var cardEl  = document.querySelector(".card");
 var answers = document.getElementsByName("inlineRadioOptions");
 var questions = document.querySelector("#questions")
@@ -12,64 +15,74 @@ var inlineRadio1 = document.querySelector("inlineRadio1");
 var inlineRadio2 = document.querySelector("inlineRadio2");
 var inlineRadio3 = document.querySelector("inlineRadio3");
 var inlineRadio4 = document.querySelector("inlineRadio4");
+window.localStorage.clear();
+window.localStorage.setItem("index",0);
 
+console.log(quiz)
 
-
-//create quiz info
-const quiz = [
-    {
-    question: "What is your name",
-    correct: "Kory",
-    answer2: "Jim",
-    answer3: "David",
-    answer4: "Andrew"
-    },
-    {
-    question: "What is your favorite food?",
-    correct: "Mexican",
-    answer2: "Pizza",
-    answer3: "Mac & Cheese",
-    answer4: "Ice Cream"
-    },
-    {
-    question: "Where do you live?",
-    correct: "Seattle",
-    answer2: "Detroit",
-    answer3: "Iowa",
-    answer4: "Minneapolis"
-    }
-];
 
 //testing creations and DOM input
 console.log(quiz)
 
 //Set attributes
-navBtn.setAttribute("style", "font-size: 10vw");
-navBtn.parentElement.setAttribute("style", "text-align: center");
-
-
+startBtn.setAttribute("style", "font-size: 10vw");
+startBtn.parentElement.setAttribute("style", "text-align: center");
 cardEl.setAttribute("style", "max-width: 100px");
 cardEl.setAttribute("style", "text-align: center");
 
 
 
-function startTest(event) {
-    if (event.target === navBtn){
-        navBtn.textContent = "Exit Quiz";
-        navBtn.setAttribute("style", "font-size: 2vw");
-        navBtn.parentElement.setAttribute("style", "text-align: center");
+ function startTest(event) {
+    if (event.target === startBtn){
+        startBtn.textContent = "Next Question";
+        startBtn.setAttribute("style", "font-size: 2vw");
+        startBtn.parentElement.setAttribute("style", "text-align: center");
 
         quizInit()
+        startTimer()
+    }
+    else if(event.target.textContent === "Submit"){
+        checkAnswer();
+    }
+    else if (event.target.textContent === "Exit Quiz"){
+        quizExit();
     }
 }
 
-function quizInit(){
-    questions.textContent = JSON.parse(JSON.stringify(quiz[0].question));
-    radioText1.textContent = JSON.parse(JSON.stringify(quiz[0].correct));
-    radioText2.textContent = JSON.parse(JSON.stringify(quiz[0].answer2));
-    radioText3.textContent = JSON.parse(JSON.stringify(quiz[0].answer3));
-    radioText4.textContent = JSON.parse(JSON.stringify(quiz[0].answer4));
-    console.log("attribute set");
+function startTimer(){
+
 }
+
+function quizInit(){
+    questions.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.index[0]].question));
+    radioText1.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.index[0]].answer1));
+    radioText2.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.index[0]].answer2));
+    radioText3.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.index[0]].answer3));
+    radioText4.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.index[0]].answer4));
+    console.log("attribute set");
+    console.log(window.localStorage.index[0])
+
+    //incriment local storage index 
+    var i = window.localStorage.index[0];
+    i++;
+    window.localStorage.setItem("index",i);
+
+}
+
+function quizExit(){
+    questions.textContent = ("");
+    radioText1.textContent = ("");
+    radioText2.textContent = ("");
+    radioText3.textContent = ("");
+    radioText4.textContent = ("");
+}
+
+function checkAnswer(){
+
+    }
+
+
 //Add event listeners here
-navBtn.addEventListener("click", startTest);
+startBtn.addEventListener("click", startTest);
+submitBtn.addEventListener("click", startTest);
+
