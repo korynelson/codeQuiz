@@ -22,6 +22,7 @@ window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 
 
+
 //Test Matrix and answers
 const quiz = [
 {
@@ -127,6 +128,7 @@ cardEl.setAttribute("style", "text-align: center");
 
 
 
+
  function startTest(event) {
      console.log(event)
     if (event.target === startBtn){
@@ -149,7 +151,12 @@ cardEl.setAttribute("style", "text-align: center");
 }
 
 function startTimer(){
-
+    console.log("made it to timer")
+    this.min = 10
+    this.sec = 00
+    minutesDisplay.textContent = this.min;
+    secondsDisplay.textContent = this.sec;
+    
 
 }
 
