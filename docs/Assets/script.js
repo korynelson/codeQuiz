@@ -27,6 +27,7 @@ var formCheck = document.querySelector(".form-check");
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 window.localStorage.setItem("localScore", 0);
+window.localStorage.setItem("localLeaders", 0)
 
 var totalSeconds = 600;
 var secondsElapsed = 0;
@@ -139,14 +140,22 @@ cardEl.setAttribute("style", "max-width: 100px");
 cardEl.setAttribute("style", "text-align: center");
 
 
+
  function startTest(event) {
      console.log(event)
-    if (event.target === startBtn){
+     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+      alert("Quiz Over")
+      exitQuiz();
+      return
+    }
+    else if (event.target === startBtn){
         renderTime()
         renderPage();
-        startBtn.textContent = "Next Question";
-        startBtn.setAttribute("style", "font-size: 2vw");
-        startBtn.parentElement.setAttribute("style", "text-align: center");
+        startBtn.setAttribute("style", "display:none")
+
+        // startBtn.textContent = "Next Question";
+        // startBtn.setAttribute("style", "font-size: 2vw");
+        // startBtn.parentElement.setAttribute("style", "text-align: center");
         
         quizInit()
         startTimer()
@@ -289,6 +298,14 @@ function renderPage(){
   submitBtn.setAttribute("style", "display:block")
   cardEl.setAttribute("style", "display:grid")
   scoreboardEl.setAttribute("style", "display:block")
+}
+
+function exitQuiz(){
+  timeEl.setAttribute("style", "display:none")
+  submitBtn.setAttribute("style", "display:none")
+  cardEl.setAttribute("style", "display:none")
+  scoreboardEl.setAttribute("style", "display:none")
+  startBtn.setAttribute("style", "display:grid")
 
 }
 
