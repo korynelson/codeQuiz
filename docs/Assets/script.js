@@ -302,25 +302,17 @@ function exitQuiz(){
 
 function username(){
   var user = prompt("Enter your initials for the leaderboard");
-  console.log('enter username')
 
   var newUser = {"name": user,
   "score": JSON.parse(window.localStorage.getItem("localScore"))
   }
   console.log(newUser)
-  window.localStorage.setItem("localLeaders", JSON.stringify(newUser));
-  console.log(JSON.parse(window.localStorage.getItem("localLeaders")))
+  storedLeaders = JSON.parse(window.localStorage.getItem("localLeaders"))||[];
+  console.log(storedLeaders)
+  storedLeaders.push(newUser)
 
-   var users=[JSON.parse(window.localStorage.getItem("localLeaders"))];
-   console.log(users);
-
-  users.push(newUser)
-
-//   window.localStorage.psuh("localLeaders", JSON.stringify(leaderboard))
-//   console.log(window.localStorage.getItem("localLeaders"))
-
- }
-
+  localStorage.setItem("localLeaders",JSON.stringify(storedLeaders))
+}
 function renderLeaders(){
 
 }
