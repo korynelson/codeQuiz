@@ -1,0 +1,15 @@
+.card{
+    display:none;
+}
+
+#submitBtn{
+    display: none;
+}
+
+.scoreboard{
+    display:none;
+
+}
+.time{
+    display:none;
+}

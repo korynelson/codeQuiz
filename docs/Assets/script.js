@@ -4,8 +4,11 @@ var startDiv = document.querySelector("start");
 var startBtn = document.querySelector("#startBtn");
 var submitBtn = document.querySelector("#submitBtn");
 var cardEl  = document.querySelector(".card");
+var scoreboardEl  = document.querySelector(".scoreboard");
+var timeEl  = document.querySelector(".time");
 var answers = document.getElementsByName("inlineRadioOptions");
 var questions = document.querySelector("#questions");
+var formCheck = document.getElementsByClassName("form-check")
 var radioText1 = document.getElementById("radioText1");
 var radioText2 = document.getElementById("radioText2");
 var radioText3 = document.getElementById("radioText3");
@@ -140,6 +143,7 @@ cardEl.setAttribute("style", "text-align: center");
      console.log(event)
     if (event.target === startBtn){
         renderTime()
+        renderPage();
         startBtn.textContent = "Next Question";
         startBtn.setAttribute("style", "font-size: 2vw");
         startBtn.parentElement.setAttribute("style", "text-align: center");
@@ -152,6 +156,8 @@ cardEl.setAttribute("style", "text-align: center");
         index();
         resetRadio();
         quizInit();
+        formCheck.removeClass;
+
     }
     else if (event.target.textContent === "Exit Quiz"){
         quizExit();
@@ -276,9 +282,15 @@ function addPoint(){
   i++;
   window.localStorage.setItem("localScore", i++);
   console.log(window.localStorage.getItem("localScore"))
-
 }
 
+function renderPage(){
+  timeEl.setAttribute("style", "display:block")
+  submitBtn.setAttribute("style", "display:block")
+  cardEl.setAttribute("style", "display:grid")
+  scoreboardEl.setAttribute("style", "display:block")
+
+}
 
 //Add event listeners here
 startBtn.addEventListener("click", startTest);
