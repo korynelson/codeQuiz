@@ -27,13 +27,9 @@ var formCheck = document.querySelector(".form-check");
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 window.localStorage.setItem("localScore", 0);
-window.localStorage.setItem("localLeaders", 0)
 
 var totalSeconds = 600;
 var secondsElapsed = 0;
-
-
-
 
 
 //Test Matrix and answers
@@ -142,11 +138,13 @@ cardEl.setAttribute("style", "text-align: center");
 
 
  function startTest(event) {
-     console.log(event)
-     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+    console.log(event)
+
+    if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
       exitQuiz();
       window.localStorage.setItem("index", 0);
+      username();
       return
     }
     else if (event.target === startBtn){
@@ -300,6 +298,30 @@ function exitQuiz(){
   cardEl.setAttribute("style", "display:none")
   scoreboardEl.setAttribute("style", "display:none")
   startBtn.setAttribute("style", "display:grid")
+}
+
+function username(){
+  var user = prompt("Enter your initials for the leaderboard");
+  console.log('enter username')
+
+  var newUser = {"name": user,
+  "score": JSON.parse(window.localStorage.getItem("localScore"))
+  }
+  console.log(newUser)
+  window.localStorage.setItem("localLeaders", JSON.stringify(newUser));
+  console.log(JSON.parse(window.localStorage.getItem("localLeaders")))
+
+   var users=[JSON.parse(window.localStorage.getItem("localLeaders"))];
+   console.log(users);
+
+  users.push(newUser)
+
+//   window.localStorage.psuh("localLeaders", JSON.stringify(leaderboard))
+//   console.log(window.localStorage.getItem("localLeaders"))
+
+ }
+
+function renderLeaders(){
 
 }
 
