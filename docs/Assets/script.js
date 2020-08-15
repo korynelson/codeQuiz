@@ -145,6 +145,7 @@ cardEl.setAttribute("style", "text-align: center");
       exitQuiz();
       window.localStorage.setItem("index", 0);
       username();
+      renderLeaders()
       return
     }
     else if (event.target === startBtn){
@@ -313,8 +314,25 @@ function username(){
 
   localStorage.setItem("localLeaders",JSON.stringify(storedLeaders))
 }
-function renderLeaders(){
 
+function renderLeaders() {
+  // Clear todoList element and update todoCountSpan
+  leaders.innerHTML = "";
+
+  // Render a new li for each todo
+  for (var i = 0; i < storedLeaders.length; i++) {
+    var todo = storedLeaders[i];
+
+    var li = document.createElement("li");
+    li.textContent = todo;
+    li.setAttribute("data-index", i);
+
+    var button = document.createElement("button");
+    button.textContent = "Complete";
+
+    li.appendChild(button);
+    leaders.appendChild(li);
+  }
 }
 
 //Add event listeners here
