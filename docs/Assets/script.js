@@ -6,7 +6,6 @@ var submitBtn = document.querySelector("#submitBtn");
 var cardEl  = document.querySelector(".card");
 var answers = document.getElementsByName("inlineRadioOptions");
 var questions = document.querySelector("#questions");
-var radio = document.querySelector("radio");
 var radioText1 = document.getElementById("radioText1");
 var radioText2 = document.getElementById("radioText2");
 var radioText3 = document.getElementById("radioText3");
@@ -15,13 +14,20 @@ var inlineRadio1 = document.querySelector("#inlineRadio1");
 var inlineRadio2 = document.querySelector("#inlineRadio2");
 var inlineRadio3 = document.querySelector("#inlineRadio3");
 var inlineRadio4 = document.querySelector("#inlineRadio4");
+var score = document.getElementById("score")
+
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
 var formCheck = document.querySelector(".form-check");
+
+//Local storage vars
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
-var totalSeconds = 15;
+window.localStorage.setItem("localScore", 0);
+
+var totalSeconds = 600;
 var secondsElapsed = 0;
+
 
 
 
@@ -142,10 +148,10 @@ cardEl.setAttribute("style", "text-align: center");
         startTimer()
     }
     else if(event.target.textContent === "Submit"){
-        console.log("made it")
         checkAnswer();
-        index()
-        quizInit()
+        index();
+        resetRadio();
+        quizInit();
     }
     else if (event.target.textContent === "Exit Quiz"){
         quizExit();
@@ -205,7 +211,6 @@ function renderTime() {
   }
 
 function startTimer(){
-
     if (totalSeconds > 0) {
         /* The "interval" variable here using "setInterval()" begins the recurring increment of the
            secondsElapsed variable which is used to check if the time is up */
@@ -219,7 +224,6 @@ function startTimer(){
       } else {
         alert("Minutes of work/rest must be greater than 0.")
       }
-
 }
 
 function quizInit(){
@@ -228,9 +232,6 @@ function quizInit(){
     radioText2.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer2));
     radioText3.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer3));
     radioText4.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer4));
-    console.log("attribute set");
-
-    //incriment local storage index 
    
 }
 
@@ -238,7 +239,6 @@ function index(){
     var i = window.localStorage.getItem("index");
     i++;
     window.localStorage.setItem("index", i++);
-    console.log(window.localStorage.getItem("index"))
 }
 
 function quizExit(){
@@ -250,21 +250,34 @@ function quizExit(){
 }
 
 function registerAnswer(event){
-    console.log(event.target.nextElementSibling.textContent)
-    console.log(window.localStorage.getItem("index"))
     quiz[window.localStorage.getItem("index")].input = event.target.nextElementSibling.textContent
-    console.log("registered answer")
-    console.log(quiz)
 };
 
 function checkAnswer(){
     if(quiz[window.localStorage.getItem("index")].input === quiz[window.localStorage.getItem("index")].correct){
-        alert("that is correct")
-    }
+        //alert("that is correct")
+        addPoint();
+        score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
+      }
     else{
-        alert("WRONG!")
+        //alert("WRONG!")
     }
     };
+
+function resetRadio(){
+  inlineRadio1.checked = false;
+  inlineRadio2.checked = false;
+  inlineRadio3.checked = false;
+  inlineRadio4.checked = false;
+}
+
+function addPoint(){
+  var i = window.localStorage.getItem("localScore");
+  i++;
+  window.localStorage.setItem("localScore", i++);
+  console.log(window.localStorage.getItem("localScore"))
+
+}
 
 
 //Add event listeners here
