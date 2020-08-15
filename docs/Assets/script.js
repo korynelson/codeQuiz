@@ -146,6 +146,7 @@ cardEl.setAttribute("style", "text-align: center");
      if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
       exitQuiz();
+      window.localStorage.setItem("index", 0);
       return
     }
     else if (event.target === startBtn){
@@ -256,13 +257,6 @@ function index(){
     window.localStorage.setItem("index", i++);
 }
 
-function quizExit(){
-    questions.textContent = ("");
-    radioText1.textContent = ("");
-    radioText2.textContent = ("");
-    radioText3.textContent = ("");
-    radioText4.textContent = ("");
-}
 
 function registerAnswer(event){
     quiz[window.localStorage.getItem("index")].input = event.target.nextElementSibling.textContent
