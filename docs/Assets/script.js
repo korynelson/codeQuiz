@@ -30,8 +30,8 @@ window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 window.localStorage.setItem("localScore", 0);
 
-var totalSeconds = 600;
-var secondsElapsed = 0;
+var timeInitial = 600;
+var timeElapsed = 0;
 
 
 //Test Matrix and answers
@@ -138,7 +138,9 @@ cardEl.setAttribute("style", "text-align: center");
 
 
 
+
  function startTest(event) {
+  
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
@@ -149,7 +151,7 @@ cardEl.setAttribute("style", "text-align: center");
       return
     }
     else if (event.target === startBtn){
-        renderTime()
+      startTimer()
         renderPage();
         startBtn.setAttribute("style", "display:none")
 
@@ -157,8 +159,7 @@ cardEl.setAttribute("style", "text-align: center");
         // startBtn.setAttribute("style", "font-size: 2vw");
         // startBtn.parentElement.setAttribute("style", "text-align: center");
         
-        quizInit()
-        startTimer()
+
     }
     else if(event.target.textContent === "Submit"){
         checkAnswer();
@@ -173,72 +174,26 @@ cardEl.setAttribute("style", "text-align: center");
     }
 }
 
-function formatMin(){
-    var secondsLeft = totalSeconds - secondsElapsed;
-
-    var minutesLeft = Math.floor(secondsLeft / 60);
-  
-    var formattedMinutes;
-  
-    if (minutesLeft < 10) {
-      formattedMinutes = "0" + minutesLeft;
-    } else {
-      formattedMinutes = minutesLeft;
-    }
-  
-    return formattedMinutes;
-}
-
-function formatSec(){
-    var secondsLeft = (totalSeconds - secondsElapsed) % 60;
-
-  var formattedSeconds;
-
-  if (secondsLeft < 10) {
-    formattedSeconds = "0" + secondsLeft;
-  } else {
-    formattedSeconds = secondsLeft;
-  }
-
-  return formattedSeconds;
-}
-
-function renderTime() {
-    // When renderTime is called it sets the textContent for the timer html...
-    minutesDisplay.textContent = formatMin();
-    secondsDisplay.textContent = formatSec();
-  
-   // ..and then checks to see if the time has run out
-    if (secondsElapsed > totalSeconds) {
-      if (status === "Working") {
-        alert("Time for a break!");
-      } else {
-        alert("Time to get back to work!");
-      }
-  
-      stopTimer();
-    }
-  }
-
-  function stopTimer() {
-    secondsElapsed = 0;
-    renderTime();
-  }
-
 function startTimer(){
-    if (totalSeconds > 0) {
-        /* The "interval" variable here using "setInterval()" begins the recurring increment of the
-           secondsElapsed variable which is used to check if the time is up */
-            interval = setInterval(function() {
-            secondsElapsed++;
-    
-            // So renderTime() is called here once every second.
-        renderTime()
-            ;
-          }, 1000);
-      } else {
-        alert("Minutes of work/rest must be greater than 0.")
-      }
+
+  var interval = setInterval(function(){
+    var timeRemaining = timeInitial - timeElapsed;
+    var minutes = Math.floor(timeRemaining/60);
+    var seconds = (timeRemaining - minutes*60);
+    console.log(minutes)
+    console.log(seconds)
+    minutesDisplay.innerHTML = minutes + "m"
+    secondsDisplay.innerHTML = seconds + "s"
+    timeElapsed++;
+
+    if (timeRemaining < 0){
+      clearInterval(interval);
+      minutesDisplay.innerHTML = 0 + "m"
+      secondsDisplay.innerHTML = 0 + "s"
+    }
+   
+  },1000);
+
 }
 
 function quizInit(){
@@ -268,7 +223,6 @@ function checkAnswer(){
         score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
       }
     else{
-        secondsElapsed = secondsElapsed+30;
         //alert("WRONG!")
     }
     };
