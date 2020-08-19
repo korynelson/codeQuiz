@@ -128,8 +128,6 @@ const quiz = [
     },
 ];
 
-//testing creations and DOM input
-
 //Set attributes
 startBtn.setAttribute("style", "font-size: 10vw");
 startBtn.parentElement.setAttribute("style", "text-align: center");
@@ -140,26 +138,21 @@ cardEl.setAttribute("style", "text-align: center");
 
 
  function startTest(event) {
-  
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
       exitQuiz();
       window.localStorage.setItem("index", 0);
       username();
-      renderLeaders()
+      renderLeaders();
+      resetTimer();
       return
     }
     else if (event.target === startBtn){
-      startTimer()
+        startTimer()
         renderPage();
         startBtn.setAttribute("style", "display:none")
-
-        // startBtn.textContent = "Next Question";
-        // startBtn.setAttribute("style", "font-size: 2vw");
-        // startBtn.parentElement.setAttribute("style", "text-align: center");
-        
-
+        quizInit();
     }
     else if(event.target.textContent === "Submit"){
         checkAnswer();
@@ -180,8 +173,6 @@ function startTimer(){
     var timeRemaining = timeInitial - timeElapsed;
     var minutes = Math.floor(timeRemaining/60);
     var seconds = (timeRemaining - minutes*60);
-    console.log(minutes)
-    console.log(seconds)
     minutesDisplay.innerHTML = minutes + "m"
     secondsDisplay.innerHTML = seconds + "s"
     timeElapsed++;
@@ -191,9 +182,23 @@ function startTimer(){
       minutesDisplay.innerHTML = 0 + "m"
       secondsDisplay.innerHTML = 0 + "s"
     }
+
+    console.log(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))));
+    console.log(quiz.length-1);
+    
+    if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+      console.log("helooooooooo")
+      clearInterval(interval);
+    }
    
   },1000);
 
+
+}
+
+function resetTimer(){
+  timeInitial = 600;
+  timeElapsed = 0;
 }
 
 function quizInit(){
@@ -224,6 +229,7 @@ function checkAnswer(){
       }
     else{
         //alert("WRONG!")
+        timeElapsed = timeElapsed + 30;
     }
     };
 
