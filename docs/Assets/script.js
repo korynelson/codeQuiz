@@ -268,6 +268,7 @@ function checkAnswer(){
         score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
       }
     else{
+        secondsElapsed = secondsElapsed+30;
         //alert("WRONG!")
     }
     };
@@ -318,24 +319,18 @@ function renderLeaders() {
 
   // Render a new li for each todo
   for (var i = 0; i < JSON.parse(window.localStorage.getItem("localLeaders")).length; i++) {
-    
     var list = JSON.parse(window.localStorage.getItem("localLeaders"))[i];
     var tr = document.createElement("tr")
+    var th = document.createElement("th")
     var td1 = document.createElement("td")
     var td2 = document.createElement("td")
-    var th = document.createElement("th")
     tableBody.appendChild(tr);
-    th.textContent = i;
+    th.textContent = i+1;
     tr.appendChild(th);
     td1.textContent = list.name;
     tr.appendChild(td1);
     td2.textContent = list.score;
     tr.appendChild(td2);
-    console.log(list.name)
-    console.log(td1.textContent)
-    console.log(td2.textContent)
-    console.log(th.textContent)
-
   }
 }
 
