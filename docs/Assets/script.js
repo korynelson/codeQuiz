@@ -18,6 +18,7 @@ var inlineRadio2 = document.querySelector("#inlineRadio2");
 var inlineRadio3 = document.querySelector("#inlineRadio3");
 var inlineRadio4 = document.querySelector("#inlineRadio4");
 var score = document.getElementById("score")
+var leaders = document.getElementById("leaders")
 
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
@@ -127,7 +128,6 @@ const quiz = [
 ];
 
 //testing creations and DOM input
-console.log(quiz)
 
 //Set attributes
 startBtn.setAttribute("style", "font-size: 10vw");
@@ -138,7 +138,6 @@ cardEl.setAttribute("style", "text-align: center");
 
 
  function startTest(event) {
-    console.log(event)
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
@@ -307,30 +306,23 @@ function username(){
   var newUser = {"name": user,
   "score": JSON.parse(window.localStorage.getItem("localScore"))
   }
-  console.log(newUser)
   storedLeaders = JSON.parse(window.localStorage.getItem("localLeaders"))||[];
-  console.log(storedLeaders)
   storedLeaders.push(newUser)
 
   localStorage.setItem("localLeaders",JSON.stringify(storedLeaders))
 }
 
 function renderLeaders() {
-  // Clear todoList element and update todoCountSpan
   leaders.innerHTML = "";
-
-  // Render a new li for each todo
-  for (var i = 0; i < storedLeaders.length; i++) {
-    var todo = storedLeaders[i];
-
+  console.log(JSON.parse(window.localStorage.getItem("localLeaders")).length)
+// Render a new li for each todo
+  for (var i = 0; i < JSON.parse(window.localStorage.getItem("localLeaders")).length; i++) {
+    var list = JSON.parse(window.localStorage.getItem("localLeaders"))[i];
     var li = document.createElement("li");
-    li.textContent = todo;
-    li.setAttribute("data-index", i);
+    li.textContent = list.name;
+    //li.setAttribute("data-index", i);
 
-    var button = document.createElement("button");
-    button.textContent = "Complete";
 
-    li.appendChild(button);
     leaders.appendChild(li);
   }
 }
