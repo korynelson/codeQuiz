@@ -17,8 +17,9 @@ var inlineRadio1 = document.querySelector("#inlineRadio1");
 var inlineRadio2 = document.querySelector("#inlineRadio2");
 var inlineRadio3 = document.querySelector("#inlineRadio3");
 var inlineRadio4 = document.querySelector("#inlineRadio4");
-var score = document.getElementById("score")
-var leaders = document.getElementById("leaders")
+var score = document.getElementById("score");
+var leaders = document.getElementById("leaders");
+var tableBody = document.getElementById("tableBody");
 
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
@@ -313,17 +314,28 @@ function username(){
 }
 
 function renderLeaders() {
-  leaders.innerHTML = "";
-  console.log(JSON.parse(window.localStorage.getItem("localLeaders")).length)
-// Render a new li for each todo
+  tableBody.innerHTML = "";
+
+  // Render a new li for each todo
   for (var i = 0; i < JSON.parse(window.localStorage.getItem("localLeaders")).length; i++) {
+    
     var list = JSON.parse(window.localStorage.getItem("localLeaders"))[i];
-    var li = document.createElement("li");
-    li.textContent = list.name;
-    //li.setAttribute("data-index", i);
+    var tr = document.createElement("tr")
+    var td1 = document.createElement("td")
+    var td2 = document.createElement("td")
+    var th = document.createElement("th")
+    tableBody.appendChild(tr);
+    th.textContent = i;
+    tr.appendChild(th);
+    td1.textContent = list.name;
+    tr.appendChild(td1);
+    td2.textContent = list.score;
+    tr.appendChild(td2);
+    console.log(list.name)
+    console.log(td1.textContent)
+    console.log(td2.textContent)
+    console.log(th.textContent)
 
-
-    leaders.appendChild(li);
   }
 }
 
