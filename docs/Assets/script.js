@@ -29,30 +29,30 @@ window.localStorage.setItem("localScore", 0);
 var answerArray=[];
 const quiz = [
 {
-    question: "What is your name",
-    answer1: "Kory",
-    answer2: "Jim",
-    answer3: "David",
-    answer4: "Andrew",
-    correct: "Kory",
+    question: "What does HTML Stand For?",
+    answer1: "Home Tool Markup Language",
+    answer2: "Homemade Texting Module Language",
+    answer3: "Hyperlinks and Text Markup Language",
+    answer4: "Hyper Text Markup Language",
+    correct: "Hyper Text Markup Language",
     input: "",
     },
     {
-    question: "What is your favorite food?",
-    answer1: "Mexican",
-    answer2: "Pizza",
-    answer3: "Mac & Cheese",
-    answer4: "Ice Cream",
-    correct: "Mexican",
+    question: "What is the purpose of the <head> tag in HTML?",
+    answer1: "Signifies the head section of an HTML document",
+    answer2: "There is no such tag",
+    answer3: "Signifies the Title on an ",
+    answer4: "Signifies the body section of an HTML document",
+    correct: "Signifies the head section of an HTML document",
     input: "",
     },
     {
-    question: "Where do you live?",
-    answer1: "Seattle",
-    answer2: "Detroit",
-    answer3: "Iowa",
-    answer4: "Minneapolis",
-    correct: "Seattle",
+    question: "How many elements should an ID be used for",
+    answer1: "As many as you want",
+    answer2: "1",
+    answer3: "2",
+    answer4: "HTML limits you to 15",
+    correct: "1",
     input: "",
     },
     {
@@ -123,16 +123,17 @@ const quiz = [
 //Main quiz functions 
 function startTest(event) {
 
-  if(JSON.parse(window.localStorage.getItem("index")) >= quiz.length-1){
-    console.log(JSON.parse(window.localStorage.getItem("index")))
-    alert("Quiz Over")
+  if(event.target.textContent === "Submit" & JSON.parse(window.localStorage.getItem("index")) >= quiz.length-1){
+    checkAnswer();
     username();
     renderLeaders();
     resetScore();
     resetTimer();
     clearAnswers();
+    resetRadio();
     welcomeEl.setAttribute("style", "visibility:visible")
     qCardEl.setAttribute("style", "display:none")
+    index()
     return
   }
 
@@ -141,7 +142,7 @@ function startTest(event) {
     window.localStorage.setItem("index", 0);
     renderPage();
     quizInit();
-    startTimer()
+    startTimer();
   }
 
   else if(event.target.textContent === "Submit"){
@@ -174,7 +175,7 @@ function startTimer(){
       resetTimer();
     }
     
-    else if (JSON.parse(window.localStorage.getItem("index")) >= quiz.length-1){
+    else if (JSON.parse(window.localStorage.getItem("index")) >= quiz.length){
       console.log("helooooooooo")
       console.log(JSON.parse(window.localStorage.getItem("index")))
       clearInterval(interval);
@@ -186,7 +187,7 @@ function startTimer(){
 
 //reset the time after quiz completes
 function resetTimer(){
-  timeInitial = 600;
+  timeInitial = 300;
   timeElapsed = 0;
 }
 
@@ -219,12 +220,11 @@ function clearAnswers(){
 //check to see if submitted answer is correct - if wrong take off 30 seconds
 function checkAnswer(){
   if(answerArray[window.localStorage.getItem("index")] === quiz[window.localStorage.getItem("index")].correct){
-    //alert("that is correct")
     addPoint();
-    score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
+    console.log(JSON.parse(window.localStorage.getItem("localScore")))
+    score.textContent = JSON.parse(window.localStorage.getItem("localScore"));
   }
   else{
-    //alert("WRONG!")
     timeElapsed = timeElapsed + 30;
   }
 };
