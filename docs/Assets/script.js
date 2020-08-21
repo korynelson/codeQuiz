@@ -39,6 +39,7 @@ var timeElapsed = 0;
 
 
 //Test Matrix and answers
+var answerArray=[];
 const quiz = [
 {
     question: "What is your name",
@@ -136,11 +137,15 @@ const quiz = [
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
-      window.localStorage.setItem("index", 0);
       username();
       renderLeaders();
       resetTimer();
       resetScore();
+      console.log(quiz)
+
+      clearAnswers();
+      console.log(quiz)
+      window.localStorage.setItem("index", 0);
       return
     }
 
@@ -149,6 +154,11 @@ const quiz = [
       renderPage();
       quizInit();
       startTimer()
+      var points = [40, 100, 1, 5, 25, 10];
+      var asorted = points.sort(function(a, b){return b - a});
+      console.log(points)
+      console.log(asorted)
+      
     }
 
     else if(event.target.textContent === "Submit"){
@@ -205,19 +215,22 @@ function quizInit(){
 
 function index(){
     var i = window.localStorage.getItem("index");
-    console.log(i)
     i++;
-    console.log(i)
     window.localStorage.setItem("index", i++);
 }
 
 
-function registerAnswer(event){
-    quiz[window.localStorage.getItem("index")].input = event.target.nextElementSibling.textContent
+function registerAnswer(){
+    answerArray[window.localStorage.getItem("index")] = event.target.nextElementSibling.textContent
+    console.log(answerArray)
 };
 
+function clearAnswers(){
+  answerArray = [];
+}
+
 function checkAnswer(){
-    if(quiz[window.localStorage.getItem("index")].input === quiz[window.localStorage.getItem("index")].correct){
+    if(answerArray[window.localStorage.getItem("index")] === quiz[window.localStorage.getItem("index")].correct){
         //alert("that is correct")
         addPoint();
         score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
@@ -263,13 +276,21 @@ function username(){
   localStorage.setItem("localLeaders",JSON.stringify(storedLeaders))
 }
 
+//Render leader board at botom of page
 function renderLeaders() {
+  
+  //sort leaders before rendering
+  var lead = JSON.parse(window.localStorage.getItem("localLeaders"))
+  lead.sort(function(a,b){
+  return b.score-a.score;
+  });
+
+  //turn on scoreboard
   tableBody.innerHTML = "";
   scoreboardEl.setAttribute("style","visibility:visible")
-  console.log("here1")
-  // Render a new li for each todo
-  for (var i = 0; i < JSON.parse(window.localStorage.getItem("localLeaders")).length; i++) {
-    var list = JSON.parse(window.localStorage.getItem("localLeaders"))[i];
+  // Render a new li for each todo with dynamic html
+  for (var i = 0; i < lead.length; i++) {
+    var list = lead[i];
     var tr = document.createElement("tr")
     var th = document.createElement("th")
     var td1 = document.createElement("td")
@@ -284,9 +305,10 @@ function renderLeaders() {
     console.log("here2")
 
   }
-  var lead = JSON.parse(window.localStorage.getItem("localLeaders"))
-  console.log(lead.sort())
+
 }
+
+
 
 //Add event listeners here
 startBtn.addEventListener("click", startTest);
