@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="./Assets/style.css" />
     <title>Code Quiz</title>
 </head>
+
 <body>
   <!--Timer and Score Nav Bar-->
   <nav class="navbar navbar-dark bg-dark">
@@ -20,14 +22,14 @@
     </span>
     <span class="navbar-text">
       Score
-      <div class = "navbar-text" id="minutes">0</div>
-      <div class = "navbar-text" id="minutes">/</div>
-      <div class = "navbar-text" id="seconds">10</div>
+      <div class = "navbar-text" id="score">0</div>
+      <div class = "navbar-text">/</div>
+      <div class = "navbar-text">10</div>
     </span>
   </nav>
     
     <!--Welcome card - disappears after you start-->
-    <div class="card border-secondary mb-3" style="max-width: 500px; margin:auto; margin-top: 25px;" id="welcomeEl">
+    <div class="card border-secondary mb-3" id="welcomeEl">
       <div class="card-header text-center">Welcome to The Coding Quiz</div>
       <div class="card-body text-secondary">
         <p class="card-text">You have 10 minutes to Complete 10 questions but be careful! Every time you get one wrong you lose 30 seconds</p>
@@ -38,8 +40,8 @@
     </div>
 
     <!--Question card - only appears after you press start-->
-    <div class="card border-secondary mb-3" style="max-width: 18rem; margin:auto" id = "qCard">
-      <div class="card-header">Question 1</div>
+    <div class="card border-secondary mb-3 align-middle" style="max-width: 18rem;" id = "qCard">
+      <div class="card-header" id="questions">Question 1</div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
           <label class="form-check-label" for="inlineRadio1"id="radioText1"></label>
@@ -57,7 +59,7 @@
           <label class="form-check-label" for="inlineRadio4"id="radioText4"> </label>
         </div>
         <div class = "navigation text-center">
-          <button id = "startBtn" class="btn btn-secondary">Submit</button>
+          <button id = "submitBtn" class="btn btn-secondary">Submit</button>
         </div>
     </div>
 

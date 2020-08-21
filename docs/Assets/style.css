@@ -1,7 +1,19 @@
+.navbar{
+    margin-bottom: 25px;
+}
+
 #qCard{
-    display: none;
+    visibility: hidden;
+    margin:auto
 }
 
 #scoreboard{
-    display: none;
+    visibility: hidden;
+    margin:auto;
+    max-width: 500px;
+
+}
+#welcomeEl{
+    max-width: 500px;
+    margin:auto;
 }

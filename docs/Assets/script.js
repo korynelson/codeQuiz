@@ -1,12 +1,14 @@
 //initialize variables - DOM and local storage
 var startBtn = document.querySelector("#startBtn");
-var welcomeEl = dcument.getElementById("welcomeEl")
+var welcomeEl = document.getElementById("welcomeEl")
+var qCardEl = document.getElementById("qCard")
+var submitBtn = document.querySelector("#submitBtn");
+var scoreboardEl  = document.getElementById("scoreboard");
+
 
 
 var startDiv = document.querySelector("start");
-var submitBtn = document.querySelector("#submitBtn");
 var cardEl  = document.querySelector(".card");
-var scoreboardEl  = document.querySelector(".scoreboard");
 var timeEl  = document.querySelector(".time");
 var answers = document.getElementsByName("inlineRadioOptions");
 var questions = document.querySelector("#questions");
@@ -134,29 +136,28 @@ const quiz = [
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       alert("Quiz Over")
-      exitQuiz();
       window.localStorage.setItem("index", 0);
       username();
       renderLeaders();
       resetTimer();
-      console.log("here")
       resetScore();
       return
     }
+
     else if (event.target === startBtn){
-        startTimer()
-        renderPage();
-        welcomeEl.setAttribute("style", "display:none")
-        quizInit();
+      welcomeEl.setAttribute("style", "display:none")
+      renderPage();
+      quizInit();
+      startTimer()
     }
+
     else if(event.target.textContent === "Submit"){
         checkAnswer();
         resetRadio();
-        quizInit();
         index();
+        quizInit();
         formCheck.removeClass;
         
-
     }
     else if (event.target.textContent === "Exit Quiz"){
         quizExit();
@@ -243,22 +244,12 @@ function addPoint(){
 
 function resetScore(){
   window.localStorage.setItem("localScore",0);
+  score.textContent = JSON.parse(window.localStorage.getItem("localScore"))
 
 }
 
 function renderPage(){
-  timeEl.setAttribute("style", "display:block")
-  submitBtn.setAttribute("style", "display:block")
-  cardEl.setAttribute("style", "display:grid")
-  scoreboardEl.setAttribute("style", "display:block")
-}
-
-function exitQuiz(){
-  timeEl.setAttribute("style", "display:none")
-  submitBtn.setAttribute("style", "display:none")
-  cardEl.setAttribute("style", "display:none")
-  scoreboardEl.setAttribute("style", "display:none")
-  startBtn.setAttribute("style", "display:grid")
+  qCardEl.setAttribute("style", "visibility: visible; max-width: 300px; margin:auto;")
 }
 
 function username(){
@@ -274,7 +265,8 @@ function username(){
 
 function renderLeaders() {
   tableBody.innerHTML = "";
-
+  scoreboardEl.setAttribute("style","visibility:visible")
+  console.log("here1")
   // Render a new li for each todo
   for (var i = 0; i < JSON.parse(window.localStorage.getItem("localLeaders")).length; i++) {
     var list = JSON.parse(window.localStorage.getItem("localLeaders"))[i];
@@ -289,6 +281,8 @@ function renderLeaders() {
     tr.appendChild(td1);
     td2.textContent = list.score;
     tr.appendChild(td2);
+    console.log("here2")
+
   }
   var lead = JSON.parse(window.localStorage.getItem("localLeaders"))
   console.log(lead.sort())
