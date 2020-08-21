@@ -4,37 +4,26 @@ var welcomeEl = document.getElementById("welcomeEl")
 var qCardEl = document.getElementById("qCard")
 var submitBtn = document.querySelector("#submitBtn");
 var scoreboardEl  = document.getElementById("scoreboard");
-
-
-
-var startDiv = document.querySelector("start");
-var cardEl  = document.querySelector(".card");
-var timeEl  = document.querySelector(".time");
-var answers = document.getElementsByName("inlineRadioOptions");
-var questions = document.querySelector("#questions");
-var formCheck = document.getElementsByClassName("form-check")
-var radioText1 = document.getElementById("radioText1");
-var radioText2 = document.getElementById("radioText2");
-var radioText3 = document.getElementById("radioText3");
-var radioText4 = document.getElementById("radioText4");
 var inlineRadio1 = document.querySelector("#inlineRadio1");
 var inlineRadio2 = document.querySelector("#inlineRadio2");
 var inlineRadio3 = document.querySelector("#inlineRadio3");
 var inlineRadio4 = document.querySelector("#inlineRadio4");
+var radioText1 = document.getElementById("radioText1");
+var radioText2 = document.getElementById("radioText2");
+var radioText3 = document.getElementById("radioText3");
+var radioText4 = document.getElementById("radioText4");
+var questions = document.querySelector("#questions");
+var formCheck = document.getElementsByClassName("form-check")
 var score = document.getElementById("score");
-var leaders = document.getElementById("leaders");
 var tableBody = document.getElementById("tableBody");
 
 var minutesDisplay = document.querySelector("#minutes");
 var secondsDisplay = document.querySelector("#seconds");
-var formCheck = document.querySelector(".form-check");
 
 //Local storage vars
 window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 window.localStorage.setItem("localScore", 0);
-
-
 
 //Test Matrix and answers
 var answerArray=[];
@@ -134,23 +123,22 @@ const quiz = [
 //Main quiz functions 
 function startTest(event) {
 
-  if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+  if(JSON.parse(window.localStorage.getItem("index")) >= quiz.length-1){
+    console.log(JSON.parse(window.localStorage.getItem("index")))
     alert("Quiz Over")
     username();
     renderLeaders();
-    resetTimer();
     resetScore();
-    console.log(quiz)
+    resetTimer();
     clearAnswers();
-    window.localStorage.setItem("index", 0);
     welcomeEl.setAttribute("style", "visibility:visible")
-    qCardEl.setAttribute("style", "visibility: hidden")
-    
+    qCardEl.setAttribute("style", "display:none")
     return
   }
 
   else if (event.target === startBtn){
     welcomeEl.setAttribute("style", "display:none")
+    window.localStorage.setItem("index", 0);
     renderPage();
     quizInit();
     startTimer()
@@ -161,8 +149,7 @@ function startTest(event) {
     resetRadio();
     index();
     quizInit();
-    formCheck.removeClass;
-        
+    formCheck.removeClass;   
   }
     
   else if (event.target.textContent === "Exit Quiz"){
@@ -171,7 +158,7 @@ function startTest(event) {
 
 }
 
-function startTimer(event){
+function startTimer(){
   resetTimer();
 
   var interval = setInterval(function(){
@@ -183,14 +170,13 @@ function startTimer(event){
     timeElapsed++;
 
     if (timeRemaining === 0){
-      console.log("helooooooooo")
       clearInterval(interval);
-      minutesDisplay.innerHTML = 0 + "m"
-      secondsDisplay.innerHTML = 0 + "s"
+      resetTimer();
     }
     
-    else if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+    else if (JSON.parse(window.localStorage.getItem("index")) >= quiz.length-1){
       console.log("helooooooooo")
+      console.log(JSON.parse(window.localStorage.getItem("index")))
       clearInterval(interval);
     }
    
@@ -223,7 +209,6 @@ function index(){
 //register the users answer 
 function registerAnswer(){
     answerArray[window.localStorage.getItem("index")] = event.target.nextElementSibling.textContent
-    console.log(answerArray)
 };
 
 //clear answer array for a new quiz
@@ -257,7 +242,6 @@ function addPoint(){
   var i = window.localStorage.getItem("localScore");
   i++;
   window.localStorage.setItem("localScore", i++);
-  console.log(window.localStorage.getItem("localScore"))
 };
 //reset score to 0/10
 function resetScore(){
@@ -308,7 +292,6 @@ function renderLeaders() {
     tr.appendChild(td1);
     td2.textContent = list.score;
     tr.appendChild(td2);
-    console.log("here2")
   }
 };
 
