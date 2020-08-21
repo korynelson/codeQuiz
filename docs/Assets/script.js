@@ -199,72 +199,79 @@ function startTimer(){
 
 }
 
+//reset the time after quiz completes
 function resetTimer(){
   timeInitial = 60;
   timeElapsed = 0;
 }
 
+//initialize quiz by setting radio button text to quiz values
 function quizInit(){
-    questions.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].question));
-    radioText1.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer1));
-    radioText2.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer2));
-    radioText3.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer3));
-    radioText4.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer4));
-   
+  questions.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].question));
+  radioText1.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer1));
+  radioText2.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer2));
+  radioText3.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer3));
+  radioText4.textContent = JSON.parse(JSON.stringify(quiz[window.localStorage.getItem("index")].answer4));
 }
 
+//increase the index value to loop through quiz questions
 function index(){
-    var i = window.localStorage.getItem("index");
-    i++;
-    window.localStorage.setItem("index", i++);
-}
+  var i = window.localStorage.getItem("index");
+  i++;
+  window.localStorage.setItem("index", i++);
+};
 
-
+//register the users answer 
 function registerAnswer(){
     answerArray[window.localStorage.getItem("index")] = event.target.nextElementSibling.textContent
     console.log(answerArray)
 };
 
+//clear answer array for a new quiz
 function clearAnswers(){
   answerArray = [];
-}
+};
 
+//check to see if submitted answer is correct - if wrong take off 30 seconds
 function checkAnswer(){
-    if(answerArray[window.localStorage.getItem("index")] === quiz[window.localStorage.getItem("index")].correct){
-        //alert("that is correct")
-        addPoint();
-        score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
-      }
-    else{
-        //alert("WRONG!")
-        timeElapsed = timeElapsed + 30;
-    }
-    };
+  if(answerArray[window.localStorage.getItem("index")] === quiz[window.localStorage.getItem("index")].correct){
+    //alert("that is correct")
+    addPoint();
+    score.textContent = JSON.parse(JSON.stringify(window.localStorage.getItem("localScore")));
+  }
+  else{
+    //alert("WRONG!")
+    timeElapsed = timeElapsed + 30;
+  }
+};
 
+//clear radio buttons
 function resetRadio(){
   inlineRadio1.checked = false;
   inlineRadio2.checked = false;
   inlineRadio3.checked = false;
   inlineRadio4.checked = false;
-}
+};
 
+//increment score
 function addPoint(){
   var i = window.localStorage.getItem("localScore");
   i++;
   window.localStorage.setItem("localScore", i++);
   console.log(window.localStorage.getItem("localScore"))
-}
-
+};
+//reset score to 0/10
 function resetScore(){
   window.localStorage.setItem("localScore",0);
   score.textContent = JSON.parse(window.localStorage.getItem("localScore"))
+};
 
-}
-
+//make question card visible
 function renderPage(){
   qCardEl.setAttribute("style", "visibility: visible; max-width: 300px; margin:auto;")
-}
+};
 
+//Get the users initials and push to local storage
 function username(){
   var user = prompt("Enter your initials for the leaderboard");
   var newUser = {"name": user,
@@ -272,9 +279,8 @@ function username(){
   }
   storedLeaders = JSON.parse(window.localStorage.getItem("localLeaders"))||[];
   storedLeaders.push(newUser)
-
   localStorage.setItem("localLeaders",JSON.stringify(storedLeaders))
-}
+};
 
 //Render leader board at botom of page
 function renderLeaders() {
@@ -305,7 +311,7 @@ function renderLeaders() {
     tr.appendChild(td2);
     console.log("here2")
   }
-}
+};
 
 //Add event listeners here
 startBtn.addEventListener("click", startTest);
