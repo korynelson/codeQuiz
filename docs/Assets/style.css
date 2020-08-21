@@ -1,14 +1,7 @@
-.card{
-    display:none;
+#qCard{
+    display: none;
 }
 
-.scoreboard{
-    display:none;
-
-}
-.time{
-    display:none;
-}
-#submitBtn{
+#scoreboard{
     display: none;
 }

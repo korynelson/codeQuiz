@@ -1,7 +1,9 @@
-
 //initialize variables - DOM and local storage
-var startDiv = document.querySelector("start");
 var startBtn = document.querySelector("#startBtn");
+var welcomeEl = dcument.getElementById("welcomeEl")
+
+
+var startDiv = document.querySelector("start");
 var submitBtn = document.querySelector("#submitBtn");
 var cardEl  = document.querySelector(".card");
 var scoreboardEl  = document.querySelector(".scoreboard");
@@ -128,15 +130,6 @@ const quiz = [
     },
 ];
 
-//Set attributes
-startBtn.setAttribute("style", "font-size: 10vw");
-startBtn.parentElement.setAttribute("style", "text-align: center");
-cardEl.setAttribute("style", "max-width: 100px");
-cardEl.setAttribute("style", "text-align: center");
-
-
-
-
  function startTest(event) {
 
     if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
@@ -146,20 +139,23 @@ cardEl.setAttribute("style", "text-align: center");
       username();
       renderLeaders();
       resetTimer();
+      console.log("here")
+      resetScore();
       return
     }
     else if (event.target === startBtn){
         startTimer()
         renderPage();
-        startBtn.setAttribute("style", "display:none")
+        welcomeEl.setAttribute("style", "display:none")
         quizInit();
     }
     else if(event.target.textContent === "Submit"){
         checkAnswer();
-        index();
         resetRadio();
         quizInit();
+        index();
         formCheck.removeClass;
+        
 
     }
     else if (event.target.textContent === "Exit Quiz"){
@@ -182,17 +178,13 @@ function startTimer(){
       minutesDisplay.innerHTML = 0 + "m"
       secondsDisplay.innerHTML = 0 + "s"
     }
-
-    console.log(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))));
-    console.log(quiz.length-1);
     
-    if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+    if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) > quiz.length-1){
       console.log("helooooooooo")
       clearInterval(interval);
     }
    
   },1000);
-
 
 }
 
@@ -212,7 +204,9 @@ function quizInit(){
 
 function index(){
     var i = window.localStorage.getItem("index");
+    console.log(i)
     i++;
+    console.log(i)
     window.localStorage.setItem("index", i++);
 }
 
@@ -247,6 +241,11 @@ function addPoint(){
   console.log(window.localStorage.getItem("localScore"))
 }
 
+function resetScore(){
+  window.localStorage.setItem("localScore",0);
+
+}
+
 function renderPage(){
   timeEl.setAttribute("style", "display:block")
   submitBtn.setAttribute("style", "display:block")
@@ -264,7 +263,6 @@ function exitQuiz(){
 
 function username(){
   var user = prompt("Enter your initials for the leaderboard");
-
   var newUser = {"name": user,
   "score": JSON.parse(window.localStorage.getItem("localScore"))
   }
@@ -292,6 +290,8 @@ function renderLeaders() {
     td2.textContent = list.score;
     tr.appendChild(td2);
   }
+  var lead = JSON.parse(window.localStorage.getItem("localLeaders"))
+  console.log(lead.sort())
 }
 
 //Add event listeners here

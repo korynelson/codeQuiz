@@ -10,52 +10,59 @@
     <title>Code Quiz</title>
 </head>
 <body>
-    <div class = "welcome">
-        <h1>
-            Welcome to the Coding Quiz
-        </h1>
-    </div>
-    <div class="time">
-        <h2>TIMER</h2>
-        <div id="minutes"></div>
-
-        <div id="seconds"></div>
- 
+  <!--Timer and Score Nav Bar-->
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-text">
+      Timer
+      <div class = "navbar-text" id="minutes">10</div>
+      <div class = "navbar-text" id="minutes">:</div>
+      <div class = "navbar-text" id="seconds">00</div>
+    </span>
+    <span class="navbar-text">
+      Score
+      <div class = "navbar-text" id="minutes">0</div>
+      <div class = "navbar-text" id="minutes">/</div>
+      <div class = "navbar-text" id="seconds">10</div>
+    </span>
+  </nav>
+    
+    <!--Welcome card - disappears after you start-->
+    <div class="card border-secondary mb-3" style="max-width: 500px; margin:auto; margin-top: 25px;" id="welcomeEl">
+      <div class="card-header text-center">Welcome to The Coding Quiz</div>
+      <div class="card-body text-secondary">
+        <p class="card-text">You have 10 minutes to Complete 10 questions but be careful! Every time you get one wrong you lose 30 seconds</p>
+        <div class = "navigation text-center">
+          <button id = "startBtn" class="btn btn-secondary">Start Quiz</button>
+        </div>
       </div>
-    <div class = "scoreboard">
-      <h2 id = "score">0</h2>
-      <h2>/10</h2>
     </div>
-    <div class = "navigation">
-        <button id = "startBtn" class="btn btn-secondary">Start Quiz</button>
-    </div>
-    <div class = "card">
-        <div class = "card-title" id="questions">
-            <h2></h2>
+
+    <!--Question card - only appears after you press start-->
+    <div class="card border-secondary mb-3" style="max-width: 18rem; margin:auto" id = "qCard">
+      <div class="card-header">Question 1</div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+          <label class="form-check-label" for="inlineRadio1"id="radioText1"></label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1"id="radioText1"></label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2"id="radioText2"></label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-            <label class="form-check-label" for="inlineRadio3" id="radioText3"> </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-            <label class="form-check-label" for="inlineRadio4"id="radioText4"> </label>
-          </div>
-        
-    </div>
-    <div class = "navigation">
-        <button id = "submitBtn" class="btn btn-secondary">Submit</button>
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+          <label class="form-check-label" for="inlineRadio2"id="radioText2"></label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+          <label class="form-check-label" for="inlineRadio3" id="radioText3"> </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+          <label class="form-check-label" for="inlineRadio4"id="radioText4"> </label>
+        </div>
+        <div class = "navigation text-center">
+          <button id = "startBtn" class="btn btn-secondary">Submit</button>
+        </div>
     </div>
 
-    <table class="table">
+    <!--Scoreboard - only appears once you have some socres-->
+    <table class="table" id="scoreboard">
       <thead>
         <tr>
           <th scope="col">Attempt</th>
@@ -64,7 +71,6 @@
         </tr>
       </thead>
       <tbody id = "tableBody">
-        
       </tbody>
     </table>
 
