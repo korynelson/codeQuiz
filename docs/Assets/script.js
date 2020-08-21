@@ -200,7 +200,7 @@ function startTimer(){
 }
 
 function resetTimer(){
-  timeInitial = 600;
+  timeInitial = 60;
   timeElapsed = 0;
 }
 
@@ -285,9 +285,10 @@ function renderLeaders() {
   return b.score-a.score;
   });
 
-  //turn on scoreboard
+  //turn on scoreboard and enable html
   tableBody.innerHTML = "";
   scoreboardEl.setAttribute("style","visibility:visible")
+
   // Render a new li for each todo with dynamic html
   for (var i = 0; i < lead.length; i++) {
     var list = lead[i];
@@ -303,12 +304,8 @@ function renderLeaders() {
     td2.textContent = list.score;
     tr.appendChild(td2);
     console.log("here2")
-
   }
-
 }
-
-
 
 //Add event listeners here
 startBtn.addEventListener("click", startTest);
