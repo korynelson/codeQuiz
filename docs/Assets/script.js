@@ -34,8 +34,6 @@ window.localStorage.clear();
 window.localStorage.setItem("index", 0);
 window.localStorage.setItem("localScore", 0);
 
-var timeInitial = 600;
-var timeElapsed = 0;
 
 
 //Test Matrix and answers
@@ -133,48 +131,48 @@ const quiz = [
     },
 ];
 
- function startTest(event) {
+//Main quiz functions 
+function startTest(event) {
 
-    if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
-      alert("Quiz Over")
-      username();
-      renderLeaders();
-      resetTimer();
-      resetScore();
-      console.log(quiz)
+  if(JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
+    alert("Quiz Over")
+    username();
+    renderLeaders();
+    resetTimer();
+    resetScore();
+    console.log(quiz)
+    clearAnswers();
+    window.localStorage.setItem("index", 0);
+    welcomeEl.setAttribute("style", "visibility:visible")
+    qCardEl.setAttribute("style", "visibility: hidden")
+    
+    return
+  }
 
-      clearAnswers();
-      console.log(quiz)
-      window.localStorage.setItem("index", 0);
-      return
-    }
+  else if (event.target === startBtn){
+    welcomeEl.setAttribute("style", "display:none")
+    renderPage();
+    quizInit();
+    startTimer()
+  }
 
-    else if (event.target === startBtn){
-      welcomeEl.setAttribute("style", "display:none")
-      renderPage();
-      quizInit();
-      startTimer()
-      var points = [40, 100, 1, 5, 25, 10];
-      var asorted = points.sort(function(a, b){return b - a});
-      console.log(points)
-      console.log(asorted)
-      
-    }
-
-    else if(event.target.textContent === "Submit"){
-        checkAnswer();
-        resetRadio();
-        index();
-        quizInit();
-        formCheck.removeClass;
+  else if(event.target.textContent === "Submit"){
+    checkAnswer();
+    resetRadio();
+    index();
+    quizInit();
+    formCheck.removeClass;
         
-    }
-    else if (event.target.textContent === "Exit Quiz"){
-        quizExit();
-    }
+  }
+    
+  else if (event.target.textContent === "Exit Quiz"){
+    quizExit();
+  }
+
 }
 
-function startTimer(){
+function startTimer(event){
+  resetTimer();
 
   var interval = setInterval(function(){
     var timeRemaining = timeInitial - timeElapsed;
@@ -184,13 +182,14 @@ function startTimer(){
     secondsDisplay.innerHTML = seconds + "s"
     timeElapsed++;
 
-    if (timeRemaining < 0){
+    if (timeRemaining === 0){
+      console.log("helooooooooo")
       clearInterval(interval);
       minutesDisplay.innerHTML = 0 + "m"
       secondsDisplay.innerHTML = 0 + "s"
     }
     
-    if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) > quiz.length-1){
+    else if (JSON.parse(JSON.stringify(window.localStorage.getItem("index"))) >= quiz.length-1){
       console.log("helooooooooo")
       clearInterval(interval);
     }
@@ -201,7 +200,7 @@ function startTimer(){
 
 //reset the time after quiz completes
 function resetTimer(){
-  timeInitial = 60;
+  timeInitial = 600;
   timeElapsed = 0;
 }
 
