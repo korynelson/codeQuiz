@@ -4,7 +4,9 @@
 
 #qCard{
     visibility: hidden;
-    margin:auto
+    margin:auto;
+    padding: 5px;
+    
 }
 
 #scoreboard{

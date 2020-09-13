@@ -29,93 +29,93 @@ window.localStorage.setItem("localScore", 0);
 var answerArray=[];
 const quiz = [
 {
-    question: "What does HTML Stand For?",
-    answer1: "Home Tool Markup Language",
-    answer2: "Homemade Texting Module Language",
-    answer3: "Hyperlinks and Text Markup Language",
-    answer4: "Hyper Text Markup Language",
-    correct: "Hyper Text Markup Language",
+    question: "Which of the following will write a message in an alert box",
+    answer1: "alertBox('Hello World')",
+    answer2: "alert(Hello World)",
+    answer3: "msg('Hello World')",
+    answer4: "alert('Hello World')",
+    correct: "alert('Hello World')",
     input: "",
     },
     {
-    question: "What is the purpose of the <head> tag in HTML?",
-    answer1: "Signifies the head section of an HTML document",
+    question: "Which tag should you use to call your JavaScrit into HTML?",
+    answer1: "<body>",
     answer2: "There is no such tag",
-    answer3: "Signifies the Title on an ",
-    answer4: "Signifies the body section of an HTML document",
-    correct: "Signifies the head section of an HTML document",
+    answer3: "<script>",
+    answer4: "<head>",
+    correct: "<script>",
     input: "",
     },
     {
-    question: "How many elements should an ID be used for",
-    answer1: "As many as you want",
-    answer2: "1",
-    answer3: "2",
-    answer4: "HTML limits you to 15",
-    correct: "1",
+    question: "Which sytax will bring up a prompt box?",
+    answer1: "prompt()",
+    answer2: "box.prompt()",
+    answer3: "msgPrompt()",
+    answer4: "alert()",
+    correct: "prompt()",
     input: "",
     },
     {
-    question: "What is your name",
-    answer1: "Kory",
-    answer2: "Jim",
-    answer3: "David",
-    answer4: "Andrew",
-    correct: "Kory",
+    question: "What does JSON stand for?",
+    answer1: "Java Selector Object Numbers",
+    answer2: "Joke Scpript October November",
+    answer3: "JavaScript Object Notation",
+    answer4: "It's Jason's nickname",
+    correct: "JavaScript Object Notation",
     input: "",
     },
     {
-    question: "What is your favorite food?",
-    answer1: "Mexican",
-    answer2: "Pizza",
-    answer3: "Mac & Cheese",
-    answer4: "Ice Cream",
-    correct: "Mexican",
+    question: "Which of the below is the syntax for comments in JavaScript?",
+    answer1: "/**/",
+    answer2: "//",
+    answer3: "<!---->",
+    answer4: "''",
+    correct: "//",
     input: "",
     },
     {
-    question: "Where do you live?",
-    answer1: "Seattle",
-    answer2: "Detroit",
-    answer3: "Iowa",
-    answer4: "Minneapolis",
-    correct: "Seattle",
+    question: "Which is the correct way to reference a JavaScript file?",
+    answer1: "<script href='xxx.js'>",
+    answer2: "<script src='xxx.js'>",
+    answer3: "<script name='xxx.js'>",
+    answer4: "<a> src='xxx.js'</a>",
+    correct: "<script src='xxx.js'>",
     input: "",
     },
     {
-    question: "What is your name",
-    answer1: "Kory",
-    answer2: "Jim",
-    answer3: "David",
-    answer4: "Andrew",
-    correct: "Kory",
+    question: "In which HTML element does the JavaScript get loaded?",
+    answer1: "<head>",
+    answer2: "<div>",
+    answer3: "<script>",
+    answer4: "<ul>",
+    correct: "<script>",
     input: "",
     },
     {
-    question: "What is your favorite food?",
-    answer1: "Mexican",
-    answer2: "Pizza",
-    answer3: "Mac & Cheese",
-    answer4: "Ice Cream",
-    correct: "Mexican",
+    question: "Which if statement will execture if x=2?",
+    answer1: "if(x 2)",
+    answer2: "if(x=2)",
+    answer3: "if(x==2)",
+    answer4: "testif(x==2)",
+    correct: "if(x==2)",
     input: "",
     },
     {
-    question: "Where do you live?",
-    answer1: "Seattle",
-    answer2: "Detroit",
-    answer3: "Iowa",
-    answer4: "Minneapolis",
-    correct: "Seattle",
+    question: "What does DOM stand for?",
+    answer1: "It's a name",
+    answer2: "Document Object Model",
+    answer3: "DOMINATE!!!!",
+    answer4: "Delivery on Mode",
+    correct: "Document Object Model",
     input: "",
     },
     {
-    question: "Where do you live?",
-    answer1: "Seattle",
-    answer2: "Detroit",
-    answer3: "Iowa",
-    answer4: "Minneapolis",
-    correct: "Seattle",
+    question: "How do you spell JavaScript?",
+    answer1: "JS",
+    answer2: "java",
+    answer3: "script",
+    answer4: "JavaScript",
+    correct: "JavaScript",
     input: "",
     },
 ];
@@ -176,8 +176,6 @@ function startTimer(){
     }
     
     else if (JSON.parse(window.localStorage.getItem("index")) >= quiz.length){
-      console.log("helooooooooo")
-      console.log(JSON.parse(window.localStorage.getItem("index")))
       clearInterval(interval);
     }
    
@@ -221,8 +219,6 @@ function clearAnswers(){
 function checkAnswer(){
   if(answerArray[window.localStorage.getItem("index")] === quiz[window.localStorage.getItem("index")].correct){
     addPoint();
-    console.log(JSON.parse(window.localStorage.getItem("localScore")))
-    score.textContent = JSON.parse(window.localStorage.getItem("localScore"));
   }
   else{
     timeElapsed = timeElapsed + 30;
@@ -242,6 +238,7 @@ function addPoint(){
   var i = window.localStorage.getItem("localScore");
   i++;
   window.localStorage.setItem("localScore", i++);
+  score.textContent = JSON.parse(window.localStorage.getItem("localScore"));
 };
 //reset score to 0/10
 function resetScore(){
@@ -251,7 +248,7 @@ function resetScore(){
 
 //make question card visible
 function renderPage(){
-  qCardEl.setAttribute("style", "visibility: visible; max-width: 300px; margin:auto;")
+  qCardEl.setAttribute("style", "visibility: visible; max-width: 500px; margin:auto;")
 };
 
 //Get the users initials and push to local storage
