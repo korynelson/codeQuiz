@@ -2,6 +2,9 @@
 
 This is a timed code quiz with multiple-choice questions. There are 10 questions and 5 minutes available.  If you get a question wrong 30 seconds will be subtracted from the time.  Score is tracked and at the end of the quiz you may enter your initials to be tracked in the leaderboard.  The leaderboard is stored and sorded according to score. This app runs in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. 
 
+LINK:
+https://korynelson.github.io/codeQuiz/
+
 ![Image of Launched Website](/assets/images/websitePhoto1.PNG)
 
 
